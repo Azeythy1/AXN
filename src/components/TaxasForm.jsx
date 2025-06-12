@@ -2,17 +2,16 @@ import React, { useState } from "react";
 
 function TaxasForm({ taxas }) {
   const [valorLiquido, setValorLiquido] = useState("");
-  const [parcelas, setParcelas] = useState(1);
   const [tipoEntrada, setTipoEntrada] = useState("nenhuma");
   const [valorEntrada, setValorEntrada] = useState("");
   const [erro, setErro] = useState("");
-  const [resultado, setResultado] = useState(null);
+  const [resultados, setResultados] = useState([]);
 
   const arredondarParaMultiploDe10 = (valor) => {
     return Math.ceil(valor / 10) * 10;
   };
 
-  const calcularTaxaPorDentro = () => {
+  const calcularTodasTaxas = () => {
     // Validações
     if (!valorLiquido) {
       setErro("Por favor, informe o valor líquido desejado.");
@@ -42,27 +41,43 @@ function TaxasForm({ taxas }) {
       }
     }
 
-    const taxaPercentual = parcelas === 1 ? taxas.debito : taxas.credito[parcelas];
-    const taxaDecimal = taxaPercentual / 100;
-
-    let valorRepassado = valorComEntrada / (1 - taxaDecimal);
-    valorRepassado = arredondarParaMultiploDe10(valorRepassado);
+    // Calcular todas as opções de parcelamento
+    const novosResultados = [];
     
-    const taxaCobrada = valorRepassado * taxaDecimal;
-    const valorParcela = valorRepassado / parcelas;
-
-    setResultado({
-      valorLiquido: valor.toFixed(2),
-      valorEntrada: entradaCalculo.toFixed(2),
-      tipoEntrada,
-      valorComEntrada: valorComEntrada.toFixed(2),
-      valorRepassado: valorRepassado.toFixed(2),
-      taxaCobrada: taxaCobrada.toFixed(2),
-      parcelas,
-      valorParcela: valorParcela.toFixed(2),
-      taxaPercentual
+    // Opção de débito (1x)
+    const taxaDebito = taxas.debito / 100;
+    const valorRepassadoDebito = valorComEntrada / (1 - taxaDebito);
+    const valorRepassadoArredondadoDebito = arredondarParaMultiploDe10(valorRepassadoDebito);
+    const taxaCobradaDebito = valorRepassadoArredondadoDebito * taxaDebito;
+    
+    novosResultados.push({
+      parcelas: 1,
+      tipo: "Débito",
+      taxaPercentual: taxas.debito,
+      valorParcela: valorRepassadoArredondadoDebito.toFixed(2),
+      valorTotal: valorRepassadoArredondadoDebito.toFixed(2),
+      taxaCobrada: taxaCobradaDebito.toFixed(2)
     });
-    
+
+    // Opções de crédito (2x a 18x)
+    for (let parcelas = 2; parcelas <= 18; parcelas++) {
+      const taxaCredito = taxas.credito[parcelas] / 100;
+      const valorRepassadoCredito = valorComEntrada / (1 - taxaCredito);
+      const valorRepassadoArredondadoCredito = arredondarParaMultiploDe10(valorRepassadoCredito);
+      const taxaCobradaCredito = valorRepassadoArredondadoCredito * taxaCredito;
+      const valorParcelaCredito = valorRepassadoArredondadoCredito / parcelas;
+      
+      novosResultados.push({
+        parcelas,
+        tipo: "Crédito",
+        taxaPercentual: taxas.credito[parcelas],
+        valorParcela: valorParcelaCredito.toFixed(2),
+        valorTotal: valorRepassadoArredondadoCredito.toFixed(2),
+        taxaCobrada: taxaCobradaCredito.toFixed(2)
+      });
+    }
+
+    setResultados(novosResultados);
     setErro("");
   };
 
@@ -107,67 +122,44 @@ function TaxasForm({ taxas }) {
         </div>
       )}
       
-      <div className="input-group">
-        <label className="input-label">Parcelas:</label>
-        <select
-          value={parcelas}
-          onChange={(e) => setParcelas(parseInt(e.target.value))}
-          className="select-field"
-        >
-          {[...Array(18).keys()].map((i) => (
-            <option key={i + 1} value={i + 1} className="select-option">
-              {i + 1}x
-            </option>
-          ))}
-        </select>
-      </div>
-      
-      <button onClick={calcularTaxaPorDentro} className="calculate-button">
+      <button onClick={calcularTodasTaxas} className="calculate-button">
         Calcular
       </button>
       
       {erro && <p className="error-message">{erro}</p>}
       
-      {resultado && (
-        <div className="result-container">
-          <div className="result-row">
-            <span className="result-label">VL Desejado:</span>
-            <span className="result-value">R$ {resultado.valorLiquido}</span>
+      {resultados.length > 0 && (
+      <div className="result-container">
+        <h3 className="result-title">Opções de Pagamento</h3>
+        
+        <div className="taxas-table">
+          <div className="table-header">
+            <div>Parcelas</div>
+            <div>Tipo</div>
+            <div>Taxa</div>
+            <div>Valor Parcela</div>
+            <div>Valor Total</div>
           </div>
           
-          {resultado.tipoEntrada !== "nenhuma" && (
-            <>
-              <div className="result-row">
-                <span className="result-label">Entrada ({resultado.tipoEntrada}):</span>
-                <span className="result-value">R$ {resultado.valorEntrada}</span>
+          {resultados.map((resultado, index) => {
+            const isSpecial = [6, 10, 12].includes(resultado.parcelas);
+            return (
+              <div 
+                key={index} 
+                className={`table-row ${isSpecial ? 'highlight-row' : ''}`}
+                data-parcelas={resultado.parcelas}
+              >
+                <div>{resultado.parcelas}x</div>
+                <div>{resultado.tipo}</div>
+                <div>{resultado.taxaPercentual}%</div>
+                <div>R$ {resultado.valorParcela}</div>
+                <div>R$ {resultado.valorTotal}</div>
               </div>
-              <div className="result-row">
-                <span className="result-label">VL a Financiar:</span>
-                <span className="result-value">R$ {resultado.valorComEntrada}</span>
-              </div>
-            </>
-          )}
-          
-          <div className="result-row">
-            <span className="result-label">Taxa ({resultado.taxaPercentual}%):</span>
-            <span className="result-value">R$ {resultado.taxaCobrada}</span>
-          </div>
-          
-          <div className="result-row">
-            <span className="result-label">VL Final:</span>
-            <span className="result-value">R$ {resultado.valorRepassado}</span>
-          </div>
-          
-          {resultado.parcelas > 1 && (
-            <div className="result-row parcela-row">
-              <span className="result-label">Parcelas ({resultado.parcelas}x):</span>
-              <span className="result-value parcela-value">R$ {resultado.valorParcela}</span>
-            </div>
-          )}
+            );
+          })}
         </div>
-      )}
-    </div>
-  );
-}
-
+      </div>
+    )}
+  </div>
+)};
 export default TaxasForm;

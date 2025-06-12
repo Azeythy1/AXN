@@ -10,14 +10,15 @@ body {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .app-title {
   text-align: center;
-  color: #333;
+  color: #1d1d1d;
+  background-color: #b35700;
 }
 
 .taxas-form-container {
@@ -101,22 +102,23 @@ footer {
   justify-content: space-between;
   margin-bottom: 8px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #eee;
+  border: 1px solid #000000;
+  
 }
 
 .result-label {
   font-weight: bold;
-  color: #555;
+  color: #000000;
 }
 
 .result-value {
-  color: #333;
+  color: #000000;
 }
 
 .parcela-row {
   margin-top: 12px;
   padding-top: 8px;
-  border-top: 2px solid #ddd;
+  border-top: 2px solid #792c2c;
 }
 
 .parcela-value {
@@ -143,6 +145,7 @@ footer {
   justify-content: center;
   align-items: center;
   gap: 15px;
+  
 }
 
 .version-tooltip {
@@ -191,3 +194,108 @@ footer {
   visibility: visible;
   opacity: 1;
 }
+
+/* Estilos da Tabela */
+.taxas-table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.5fr 1.5fr;
+  background-color: #2c3e50;
+  color: white;
+  font-weight: 600;
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1.5fr 1.5fr;
+  padding: 12px 15px;
+  text-align: center;
+  border: 1px solid #000000;
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+.table-row:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.table-row:hover {
+  background-color: #e6d649bb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Destaques para as parcelas especiais */
+.highlight-row {
+  background-color: #e3f2fd !important;
+  border-left: 4px solid #1976d2;
+  font-weight: 500;
+}
+
+.highlight-row[data-parcelas="6"] {
+  border-left-color: #388e3c;
+  background-color: #e8f5e9 !important;
+}
+
+.highlight-row[data-parcelas="10"] {
+  border-left-color: #ffa000;
+  background-color: #fff8e1 !important;
+}
+
+.highlight-row[data-parcelas="12"] {
+  border-left-color: #d32f2f;
+  background-color: #ffebee !important;
+}
+
+/* Melhorias de tipografia */
+.taxas-table div {
+  padding: 8px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+/* Responsividade */
+/* @media (max-width: 768px) {
+  .taxas-table {
+    font-size: 14px;
+  }
+  
+  .table-header, .table-row {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  .table-header div:nth-child(4),
+  .table-header div:nth-child(5),
+  .table-row div:nth-child(4),
+  .table-row div:nth-child(5) {
+    display: none;
+  }
+} */
+
+/* Adicionando ícones para melhor visualização */
+/* .highlight-row[data-parcelas="6"]::before {
+  content: "⭐";
+  margin-right: 5px;
+}
+
+.highlight-row[data-parcelas="10"]::before {
+  content: "🔥";
+  margin-right: 5px;
+}
+
+.highlight-row[data-parcelas="12"]::before {
+  content: "💎";
+  margin-right: 5px;
+} */
