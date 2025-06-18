@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TaxasForm from './components/TaxasForm';
 import './styles.css';
-import Footer from './components/footer';
+// import Footer from './components/footer';
 
 function App() {
   const [taxas] = useState({
@@ -10,21 +10,21 @@ function App() {
       1: 4.5,
       2: 5.0, 
       3: 6.5, 
-      4: 6.5, 
+      4: 6.7, 
       5: 8.5, 
-      6: 8.5, 
+      6: 8.7, 
       7: 10.0, 
-      8: 10.0, 
+      8: 10.2, 
       9: 12.5,
-      10: 12.5, 
-      11: 14.0, 
-      12: 14.0, 
-      13: 18.0, 
-      14: 18.0, 
-      15: 19.0, 
-      16: 20.0, 
-      17: 20.0, 
-      18: 22.0
+      10: 12.9, 
+      11: 14.2, 
+      12: 14.5, 
+      13: 18.2, 
+      14: 18.5, 
+      15: 19.5, 
+      16: 20.2, 
+      17: 20.5, 
+      18: 22.5
     }
   });
 
@@ -34,7 +34,7 @@ function App() {
         <h1 className="app-title">Calculadora AXN</h1>
         <TaxasForm taxas={taxas} />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
