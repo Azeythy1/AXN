@@ -151,7 +151,7 @@ function TaxasForm({ taxas }) {
               >
                 <div>{resultado.parcelas}x</div>
                 <div>{resultado.tipo}</div>
-                <div>{resultado.taxaPercentual}%</div>
+                {/* <div>{resultado.taxaPercentual}%</div> */}
                 <div>R$ {resultado.valorParcela}</div>
                 <div>R$ {resultado.valorTotal}</div>
               </div>
