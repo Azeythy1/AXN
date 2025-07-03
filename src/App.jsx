@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import TaxasForm from './components/TaxasForm';
 import './styles.css';
+// import { library } from '@fortawesome/fontawesome-svg-core';
+// import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+// library.add(faWhatsapp);
 // import Footer from './components/footer';
 
 function App() {
@@ -34,6 +37,7 @@ function App() {
         <h1 className="app-title">Calculadora AXN</h1>
         <TaxasForm taxas={taxas} />
       </div>
+ 
       {/* <Footer /> */}
     </>
   );
