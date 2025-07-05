@@ -32,13 +32,13 @@ function App() {
   });
 
   return (
-    <><Footer />
+    <>
       <div  className="app-container">
         <h1 className="app-title">Calculadora AXN</h1>
         <TaxasForm taxas={taxas} />
       </div>
- 
-      
+
+      <Footer />
     </>
   );
 }

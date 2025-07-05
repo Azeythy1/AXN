@@ -71,7 +71,7 @@ body {
 
 
 
-footer {
+/* footer {
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -80,7 +80,7 @@ footer {
   font-size: 14px;
   color: #b6b2b2;
   background: #575757;
-}
+} */
 /* Adicione estas regras ao seu arquivo styles.css */
 
 .result-row {

@@ -1,8 +1,6 @@
 {
-  "version": "1.2.0",
+  "version": "2.2.0",
   "changelog": [
-    "1.0.0 - Versão inicial do sistema",
-    "1.1.0 - Adicionado cálculo de taxa por dentro ",
-    "1.2.0 - Atualização das taxas 17/05"
+    "2.2.0 - Atualização corretivas e visuais 05/07"
   ]
 }

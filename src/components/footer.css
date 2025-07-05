@@ -1,0 +1,8 @@
+/* Estilos para o rodapé */
+.footer {
+  margin-top: 20px; /* Adiciona margem superior */
+  background-color: #f0f0f0; /* Cor de fundo (opcional) */
+  padding: 10px; /* Espaçamento interno (opcional) */
+  text-align: center; /* Alinhamento do texto (opcional) */
+  width: 100%; /* Largura total (opcional) */
+}
