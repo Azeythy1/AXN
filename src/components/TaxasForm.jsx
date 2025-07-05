@@ -95,7 +95,7 @@ function TaxasForm({ taxas }) {
       `💸 *Valor Parcela:* R$ ${resultado.valorParcela}`,
       `🏷️ *Valor Total:* R$ ${resultado.valorTotal}`,
       ``,
-      `⚡ Gerado pelo Meu App`
+      `Orçamento válido até o dia ${new Date().toLocaleDateString('pt-BR')}`
     ].filter(Boolean).join('\n');
     
     window.open(`https://wa.me/?text=${encodeURIComponent(mensagem)}`, '_blank');
