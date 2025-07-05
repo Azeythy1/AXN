@@ -94,7 +94,6 @@ function TaxasForm({ taxas }) {
       `📊 *Forma:* ${resultado.tipo} ${resultado.parcelas}x`,
       `💸 *Valor Parcela:* R$ ${resultado.valorParcela}`,
       `🏷️ *Valor Total:* R$ ${resultado.valorTotal}`,
-      ``,
       `Orçamento válido até o dia ${new Date().toLocaleDateString('pt-BR')}`
     ].filter(Boolean).join('\n');
     
