@@ -54,6 +54,19 @@ function TaxasForm({ taxas }) {
       valorEntrada: entradaCalculo.toFixed(2)
     });
 
+    // Crédito (1x)
+    const valorRepassadoCredito1x = arredondarParaMultiploDe10(valorComEntrada / (1 - (taxas.credito[1] / 100)));
+    novosResultados.push({
+      parcelas: 1,
+      tipo: "Crédito",
+      valorParcela: valorRepassadoCredito1x.toFixed(2),
+      valorTotal: valorRepassadoCredito1x.toFixed(2),
+      valorLiquido: valor.toFixed(2),
+      valorEntrada: entradaCalculo.toFixed(2)
+    });
+
+
+
     // Crédito (2x a 18x)
     for (let parcelas = 2; parcelas <= 18; parcelas++) {
       const valorRepassado = arredondarParaMultiploDe10(valorComEntrada / (1 - (taxas.credito[parcelas] / 100)));
@@ -157,7 +170,7 @@ function TaxasForm({ taxas }) {
               .map((resultado, index) => (
                 <div 
                   key={index} 
-                  className={`grid-row ${resultado.parcelas === 1 ? 'debito' : ''}`}
+                  className={`grid-row ${resultado.parcelas === 1 && resultado.tipo === 'Débito' ? 'debito' : ''}`}
                 >
                   <div>{resultado.parcelas}x</div>
                   <div>{resultado.tipo}</div>
